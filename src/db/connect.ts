@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import config from "@/constants/config";
 
 const dbConnect = async () => {
@@ -11,5 +11,7 @@ const dbConnect = async () => {
     return Promise.reject("Connectin Failed");
   }
 };
+
+export const dbDisconnect = async () => await mongoose.connection.close();
 
 export default dbConnect;

@@ -1,10 +1,9 @@
 "use client";
 import Button from "@/components/Button/Button";
-import CreateAccount from "@/components/Heading/CreateAccount";
+import Heading1 from "@/components/Heading/Heading1";
 import Input from "@/components/Input/Input";
 import PasswordInput from "@/components/Input/PasswordInput";
 import { ROUTES } from "@/constants/router";
-import useAuthRedirect from "@/hooks/useAuthRedirect";
 import useLogin from "@/hooks/useLogin";
 import useStore from "@/hooks/useStore";
 import { TButton } from "@/types/const";
@@ -24,7 +23,6 @@ export default function Login() {
   const router = useRouter();
   const login = useLogin();
   const { store } = useStore();
-  useAuthRedirect();
   const [state, dispatch] = useReducer(reducer, { ...initialState });
 
   const getInputs = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +56,7 @@ export default function Login() {
         disabled={state.isLoading}
       />
       <div className='mt-16 mb-8'>
-        <CreateAccount />
+        <Heading1 text='Login' />
       </div>
       <div className='flex flex-col space-y-8 w-96'>
         <div className='relative'>

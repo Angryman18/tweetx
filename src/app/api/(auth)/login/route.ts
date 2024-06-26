@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import User, { type TUser } from "@/models/UserModel";
-import dbConnect from "@/db/connect";
-import mongoose from "mongoose";
+import dbConnect, { dbDisconnect } from "@/db/connect";
 import { genToken } from "@/utils/jwt";
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
@@ -17,10 +16,10 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     if (!isCorrect) throw new Error("Invalid Email or Password");
     const { fullname, email: userEmail, avatar } = getUser;
     const token = genToken({ email });
-    mongoose.connection.close();
+    await dbDisconnect();
     return NextResponse.json({ data: { fullname, email: userEmail, avatar, token } });
   } catch (err: unknown) {
-    mongoose.connection.close();
+    await dbDisconnect();
     return NextResponse.json({ error: (err as Error).message }, { status: 400 });
   }
 };

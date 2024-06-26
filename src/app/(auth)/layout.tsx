@@ -1,8 +1,12 @@
+"use client"
 import Image from "next/image";
 import bgImage from "../../../public/img/Log in.png";
 import { Toaster } from "react-hot-toast";
+import useAuthRedirect from "@/hooks/useAuthRedirect";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const isAuth = useAuthRedirect();
+  if (isAuth) return null;
   return (
     <main>
       <div className='mx-16 mt-12 relative'>

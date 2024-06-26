@@ -1,15 +1,22 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import useStore from "./useStore";
 import { ROUTES } from "@/constants/router";
+import { usePathname } from "next/navigation";
 
 export default function useAuthRedirect() {
+  const getUser = localStorage.getItem("user");
+  const pathname = usePathname();
+  const isValidUserData = !["null", "undefined", null].includes(getUser);
   const router = useRouter();
-  const { retrieve } = useStore();
+  const except = pathname !== ROUTES.Signup;
 
   useEffect(() => {
-    const isUserLoggedIn = retrieve("user");
-    if (isUserLoggedIn) router.push(ROUTES.Feed);
-    else router.push(ROUTES.Login);
-  }, [router, retrieve]);
+    if (!isValidUserData && except) {
+      router.push(ROUTES.Login);
+    } else if (isValidUserData) {
+      router.push(ROUTES.Feed);
+    }
+  }, [router, isValidUserData, except]);
+
+  return isValidUserData;
 }
