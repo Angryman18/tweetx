@@ -13,10 +13,10 @@ export default function useAuthRedirect() {
   useEffect(() => {
     if (!isValidUserData && except) {
       router.push(ROUTES.Login);
-    } else if (isValidUserData) {
+    } else if (isValidUserData && (pathname === ROUTES.Signup || pathname === ROUTES.Login)) {
       router.push(ROUTES.Feed);
     }
-  }, [router, isValidUserData, except]);
+  }, [router, isValidUserData, except, pathname]);
 
   return isValidUserData;
 }

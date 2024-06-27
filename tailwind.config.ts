@@ -21,6 +21,8 @@ const config: Config = {
       LBlue: "#1E88E5",
       Red: "#FF0000",
       Gray: "#e3dede",
+      MediumGray: "#333030",
+      Brown: "#c03546"
     },
   },
   plugins: [],

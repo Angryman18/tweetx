@@ -13,7 +13,7 @@ const Button = (
       break;
     case TButton.Classic:
       className =
-        "bg-Text px-4 disabled:bg-opacity-60 py-2 rounded-md shadow-md text-sm text-[#fff]";
+        "bg-Text px-8 disabled:bg-opacity-60 py-2 rounded-md shadow-md text-sm text-[#fff]";
       break;
     default:
       break;

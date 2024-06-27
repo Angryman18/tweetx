@@ -3,6 +3,12 @@ export enum TButton {
   Classic,
 }
 
+export enum ProfileTabs {
+  Post,
+  Follower,
+  Following
+}
+
 export type CustomError = {
   error: string;
 };

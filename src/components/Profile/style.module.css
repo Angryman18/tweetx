@@ -1,0 +1,36 @@
+.before_border::before {
+  content: "";
+  position: absolute;
+  width: 96px;
+  height: 2px;
+  top: 0px;
+  right: 0;
+  left: 0;
+  background: white;
+  text-align: center;
+  z-index: 1;
+}
+
+.select_item .before_border::before {
+  background: #B50B1E;
+}
+
+.select_item .before_border {
+  color: #B50B1E;
+}
+
+.parent_item:hover .before_border::before {
+  background: #B50B1E;
+}
+
+.parent_item {
+  color: gray;
+}
+
+.parent_item:hover {
+  color: #B50B1E;
+}
+
+/* .before_border:hover {
+  background: gray;
+} */
