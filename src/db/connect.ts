@@ -3,7 +3,6 @@ import config from "@/constants/config";
 
 const dbConnect = async () => {
   try {
-    console.log(config.MONGO_URI);
     await mongoose.connect(config.MONGO_URI);
     console.log("Connection is established");
   } catch (err) {

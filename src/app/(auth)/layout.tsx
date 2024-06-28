@@ -6,6 +6,7 @@ import useAuthRedirect from "@/hooks/useAuthRedirect";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const isAuth = useAuthRedirect();
+  console.log("Auth Value ", isAuth)
   if (isAuth) return null;
   return (
     <main>

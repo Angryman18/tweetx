@@ -4,4 +4,5 @@ export enum ROUTES {
   Users = "/users",
   Profile = "/profile",
   Feed = "/feed",
+  Home = "/",
 }

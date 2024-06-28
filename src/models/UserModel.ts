@@ -6,6 +6,9 @@ export type TUser = {
   password: string;
   avatar?: string;
   hash?: string;
+  followers: [Schema.Types.ObjectId];
+  following: [Schema.Types.ObjectId];
+  posts: [Schema.Types.ObjectId];
 };
 
 const UserModel = new Schema<TUser>({
@@ -14,9 +17,11 @@ const UserModel = new Schema<TUser>({
   password: { type: String, require: true },
   avatar: { type: String, require: false, default: "" },
   hash: { type: String, require: true },
+  followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  following: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
-// const CreateUserModel = model("User", UserModel);
-const User = models.User || model("User", UserModel)
+const User = models.User || model("User", UserModel);
 
 export default User;

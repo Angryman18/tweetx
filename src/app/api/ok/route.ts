@@ -1,9 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = (
-  req: NextApiRequest,
-  res: NextApiResponse<{ message: string }>
-) => {
+export const GET = (req: NextRequest, res: NextResponse) => {
   return NextResponse.json({ message: "Server is Okay" });
 };
