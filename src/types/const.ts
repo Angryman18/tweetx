@@ -1,12 +1,13 @@
 export enum TButton {
   Normal,
   Classic,
+  OutlinedClassic,
 }
 
 export enum ProfileTabs {
   Post,
   Follower,
-  Following
+  Following,
 }
 
 export type CustomError = {
@@ -19,3 +20,5 @@ export type TResp = {
   token: string;
   email: string;
 };
+
+export type TPost = { postContent: string; createdBy: { fullname: string }; createdOn: string };

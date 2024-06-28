@@ -22,6 +22,19 @@ const UserModel = new Schema<TUser>({
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
-const User = models.User || model("User", UserModel);
+UserModel.virtual("followersCount").get(function () {
+  return this.followers.length;
+});
+UserModel.virtual("followingCount").get(function () {
+  return this.following.length;
+});
+UserModel.virtual("postCount").get(function () {
+  return this.posts.length;
+});
+
+UserModel.set("toJSON", { virtuals: true });
+UserModel.set("toObject", { virtuals: true });
+delete models.User
+const User = model("User", UserModel);
 
 export default User;

@@ -14,7 +14,7 @@ const UserPageCard = ({
   showDivider?: boolean;
 }) => {
   return (
-    <div>
+    <div className='lg:w-auto w-[500px]'>
       <div className='flex items-center space-x-10 py-8 mx-12'>
         <div className='w-12 h-12 rounded-full border border-MediumGray border-opacity-50'></div>
         <div>

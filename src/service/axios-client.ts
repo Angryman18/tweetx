@@ -6,7 +6,7 @@ axiosClient.interceptors.request.use((config) => {
   let token: string | undefined;
   try {
     const user = localStorage.getItem("user");
-    token = JSON.parse(user!)?.token;
+    token = JSON.parse(user!)?.data.token;
   } catch (err) {
     token = undefined;
   }

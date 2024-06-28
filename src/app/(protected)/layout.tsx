@@ -4,6 +4,7 @@ import ProtectedNav from "@/components/Nav/ProtectedNav";
 import useAuthRedirect from "@/hooks/useAuthRedirect";
 import { ROUTES } from "@/constants/router";
 import { useRouter } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const isValid = useAuthRedirect();
@@ -13,6 +14,13 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
 
   return (
     <main>
+      <Toaster
+        position='top-center'
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=''
+        containerStyle={{}}
+      />
       <div className='h-16 flex items-center shadow-lg'>
         <div className='mx-48 flex w-full h-full items-center'>
           <div

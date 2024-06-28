@@ -1,7 +1,15 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import UserPageCard from "@/components/Users/UserPageCard";
+import axiosClient from "@/service/axios-client";
 
 const Users = () => {
+  useEffect(() => {
+    axiosClient.get("/api/user/all-user").then((res) => {
+      console.log(res.data);
+    });
+  }, []);
+
   return (
     <div>
       <UserPageCard isFollowing={false} name='Shyam Mahanta' followCount={500} />
