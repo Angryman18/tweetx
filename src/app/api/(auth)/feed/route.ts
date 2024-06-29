@@ -6,8 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     const getToken = req.headers.get("Authorization");
-    if (!getToken) throw new Error("JWT Token is Required");
-    const user = (await decodeAndGetUser(getToken)) as TUser & { _id: string };
+    const user = (await decodeAndGetUser(getToken!)) as TUser & { _id: string };
     const follwers = [...user.followers, user!._id];
     const getPosts = await Post.find({ createdBy: { $in: follwers } })
       .sort({ createdOn: -1 })
