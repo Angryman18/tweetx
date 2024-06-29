@@ -7,9 +7,27 @@ type CTab = { tab: ProfileTabs };
 export const PostSection = ({ tab }: CTab) => {
   return (
     <>
-      <Post />
-      <Post />
-      <Post />
+      <Post
+        post={{
+          postContent: "",
+          createdBy: { fullname: "Shyam Mahanta" },
+          createdOn: new Date().toISOString(),
+        }}
+      />
+      <Post
+        post={{
+          postContent: "",
+          createdBy: { fullname: "Shyam Mahanta" },
+          createdOn: new Date().toISOString(),
+        }}
+      />
+      <Post
+        post={{
+          postContent: "",
+          createdBy: { fullname: "Shyam Mahanta" },
+          createdOn: new Date().toISOString(),
+        }}
+      />
     </>
   );
 };

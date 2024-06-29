@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     if (!email || !password) throw new Error("Invalid email or password");
     const [getUser] = await User.find<TUser>({ email }).lean();
     if (!getUser) throw new Error("Email not found");
-    const isCorrect = await bcrypt.compare(password, getUser.hash);
+    const isCorrect = await bcrypt.compare(password, getUser.hash!);
     if (!isCorrect) throw new Error("Invalid Email or Password");
     const { fullname, email: userEmail, avatar } = getUser;
     const token = genToken({ email });
