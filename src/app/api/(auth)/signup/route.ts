@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const isExist = await User.findOne({ email });
     if (isExist) throw new Error("User already exists");
     const hash = await genPassword(password);
-    const user = new User({ fullname: name, email, hash, password });
+    const user = new User({ fullname: name, email, hash });
     await user.save();
     return NextResponse.json({ message: "Success" }, { statusText: "Success" });
   } catch (err: unknown) {

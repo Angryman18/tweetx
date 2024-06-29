@@ -6,6 +6,7 @@ const PostModel = new Schema({
   postContent: { type: String, require: true },
 });
 
-const Post = models.Post || model("Post", PostModel);
+delete models.Post;
+const Post = model("Post", PostModel);
 
 export default Post;

@@ -14,7 +14,6 @@ export type TUser = {
 const UserModel = new Schema<TUser>({
   fullname: { type: String, require: true },
   email: { type: String, require: true, unique: true },
-  password: { type: String, require: true },
   avatar: { type: String, require: false, default: "" },
   hash: { type: String, require: true },
   followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
@@ -23,17 +22,19 @@ const UserModel = new Schema<TUser>({
 });
 
 UserModel.virtual("followersCount").get(function () {
-  return this.followers.length;
+  return this.followers?.length;
 });
 UserModel.virtual("followingCount").get(function () {
-  return this.following.length;
+  return this.following?.length;
 });
 UserModel.virtual("postCount").get(function () {
-  return this.posts.length;
+  return this.posts?.length;
 });
 
 UserModel.set("toJSON", { virtuals: true });
 UserModel.set("toObject", { virtuals: true });
-const User = models.User || model("User", UserModel);
+
+delete models.User;
+const User = model("User", UserModel);
 
 export default User;

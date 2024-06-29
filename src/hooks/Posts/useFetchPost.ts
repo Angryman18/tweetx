@@ -16,7 +16,7 @@ export default function useFetchPosts() {
       setPosts(res.data);
     } catch (err: unknown) {
       toastError(axiosErrorMsg(err as AxiosError));
-      return Promise.reject(err as string);
+      return Promise.reject(axiosErrorMsg(err as AxiosError));
     } finally {
       setLoading(false);
     }

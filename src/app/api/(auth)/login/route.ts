@@ -9,14 +9,14 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const body = await req.json();
     const { email, password } = body;
     if (!email || !password) throw new Error("Invalid email or password");
-    await dbConnect()
+    await dbConnect();
     const [getUser] = await User.find<TUser>({ email }).lean();
     if (!getUser) throw new Error("Email not found");
     const isCorrect = await bcrypt.compare(password, getUser.hash!);
     if (!isCorrect) throw new Error("Invalid Email or Password");
-    const { fullname, email: userEmail, avatar } = getUser;
+    const { fullname, email: userEmail, avatar, _id } = getUser;
     const token = genToken({ email });
-    return NextResponse.json({ data: { fullname, email: userEmail, avatar, token } });
+    return NextResponse.json({ data: { fullname, email: userEmail, avatar, token, _id } });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 400 });
   }

@@ -22,3 +22,10 @@ export type TResp = {
 };
 
 export type TPost = { postContent: string; createdBy: { fullname: string }; createdOn: string };
+
+export type TUserProfile = {
+  id: string;
+  fullname: string;
+  followingCount: number;
+  isFollowing: boolean;
+};

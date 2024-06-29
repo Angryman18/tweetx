@@ -1,6 +1,20 @@
-import { useCallback } from "react";
+import { TUser } from "@/models/UserModel";
+import { useCallback, useEffect, useState } from "react";
+
+type User = {
+  avatar: string;
+  fullname: string;
+  email: string;
+  token: string;
+  _id: string;
+};
+type UserData = {
+  data: User;
+};
 
 export default function useStore() {
+  const [userData, setUserData] = useState<UserData>();
+
   const store = useCallback(<T>(data: T, key: string) => {
     localStorage.setItem(key, JSON.stringify(data));
   }, []);
@@ -14,5 +28,10 @@ export default function useStore() {
     }
   }, []);
 
-  return { store, retrieve };
+  useEffect(() => {
+    const data = retrieve<UserData>("user");
+    if (data) setUserData(data);
+  }, [retrieve]);
+
+  return { store, retrieve, userData };
 }

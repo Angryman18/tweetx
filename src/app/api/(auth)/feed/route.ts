@@ -1,19 +1,18 @@
 import dbConnect from "@/db/connect";
 import Post from "@/models/PostModel";
-import { TUser } from "@/models/UserModel";
-import { decodeAndGetUser } from "@/utils/jwt";
+import { getUser } from "@/utils/commonUtil";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
-    const getToken = req.headers.get("Authorization");
-    await dbConnect()
-    const user = (await decodeAndGetUser(getToken!)) as TUser & { _id: string };
+    await dbConnect();
+    const user = await getUser(req);
     const follwers = [...user.followers, user!._id];
+    console.log(follwers);
     const getPosts = await Post.find({ createdBy: { $in: follwers } })
+      .populate({ path: "createdBy", select: "fullname -_id" })
       .sort({ createdOn: -1 })
-      .select("-__v")
-      .populate({path: "createdBy", select: "fullname -_id"});
+      .select("-__v");
     return NextResponse.json(getPosts);
   } catch (err: unknown) {
     return NextResponse.json(
