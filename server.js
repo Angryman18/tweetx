@@ -11,9 +11,9 @@ const server = express();
 
 console.log("Environment ", process.env.NODE_ENV);
 
-app.prepare().then(async () => {
-  await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI);
-  server.all("*", (req, res) => {
+app.prepare().then(() => {
+  server.all("*", async (req, res) => {
+    await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI);
     return handler(req, res);
   });
   server.listen(3001, (err) => {
