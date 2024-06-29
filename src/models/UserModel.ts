@@ -34,7 +34,6 @@ UserModel.virtual("postCount").get(function () {
 
 UserModel.set("toJSON", { virtuals: true });
 UserModel.set("toObject", { virtuals: true });
-delete models.User
-const User = model("User", UserModel);
+const User = models.User || model("User", UserModel);
 
 export default User;
