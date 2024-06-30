@@ -6,11 +6,10 @@ import { TCurrentUserProfile } from "@/types/const";
 
 export default function useUserProfile(getUseratFirstMount: boolean = true) {
   const { retrieve } = useStore();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<TCurrentUserProfile>();
   const getUserProfile = useCallback(async (id?: string) => {
     try {
-      setLoading(true);
       const resp = await axiosClient.get<{ user: TCurrentUserProfile }>(
         `/api/user/user-profile/${id}`
       );

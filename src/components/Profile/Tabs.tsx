@@ -1,4 +1,4 @@
-import { ProfileTabs } from "@/types/const";
+"use client"
 import Post from "../Post/Post";
 import UserPageCard from "../Users/UserPageCard";
 import useFetchPosts from "@/hooks/Posts/useFetchPosts";

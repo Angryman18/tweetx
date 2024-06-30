@@ -6,14 +6,13 @@ import { toastError } from "@/utils/fe-utils/toast";
 import { axiosErrorMsg } from "@/utils/fe-utils/error";
 
 export default function useFetchPosts() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<TPost[]>([]);
   const { retrieve } = useStore();
 
   const fetchPosts = useCallback(async () => {
     try {
       if (!!posts.length) return;
-      setLoading(true);
       const userId = retrieve("user")?.data._id;
       if (!userId) throw new Error("User not found");
       const resp = await axiosClient.post<TPost[]>("/api/user/user-post", { userId });
