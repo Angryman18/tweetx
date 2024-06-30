@@ -3,7 +3,7 @@ import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import { TButton } from "@/types/const";
 import useCreatePost from "@/hooks/Posts/useCreatePosts";
-import { toastError } from "@/utils/fe-utils/toast";
+import { toastError, toastLoading, toastSuccess } from "@/utils/fe-utils/toast";
 
 const WritePost = ({
   showModal,
@@ -24,12 +24,13 @@ const WritePost = ({
 
   const handlePost = async () => {
     try {
-      await createPost(text);
       toggleModal();
+      toastLoading("Posting...");
+      await createPost(text);
       await fetchPosts();
+      toastSuccess("Posted...");
     } catch (err: unknown) {
       toastError(err as string);
-      toggleModal();
     }
   };
 

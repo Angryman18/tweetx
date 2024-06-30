@@ -1,5 +1,11 @@
 import toast from "react-hot-toast";
 
+export const toastLoading = (val: string) => {
+  if (typeof val !== "string") return toast.loading("Please Wait...");
+  toast.dismiss();
+  toast.loading(val);
+};
+
 export const toastError = (val: string) => {
   if (typeof val !== "string") return toast.error("Something went wrong");
   toast.dismiss();

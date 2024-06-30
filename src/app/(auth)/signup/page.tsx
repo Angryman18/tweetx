@@ -5,7 +5,7 @@ import { TButton } from "@/types/const";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/router";
 import { ChangeEvent, useReducer } from "react";
-import { toastError, toastSuccess } from "@/utils/fe-utils/toast";
+import { toastError, toastLoading, toastSuccess } from "@/utils/fe-utils/toast";
 import useSignUp from "@/hooks/useSignUp";
 import { validateSignupInfo } from "@/utils/fe-utils/validate";
 import Heading1 from "@/components/Heading/Heading1";
@@ -33,6 +33,7 @@ export default function Signup() {
 
     try {
       dispatch({ isLoading: true });
+      toastLoading("Please wait...");
       await signup({ name, password, email });
       toastSuccess("Signup was Successfull. Please Login");
       dispatch({ isLoading: false });

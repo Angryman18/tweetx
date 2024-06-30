@@ -7,7 +7,7 @@ import { ROUTES } from "@/constants/router";
 import useLogin from "@/hooks/useLogin";
 import useStore from "@/hooks/useStore";
 import { TButton } from "@/types/const";
-import { toastError } from "@/utils/fe-utils/toast";
+import { toastError, toastSuccess } from "@/utils/fe-utils/toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useReducer } from "react";
@@ -40,8 +40,7 @@ export default function Login() {
       const response = await login({ email, password });
       store(response, "user");
       dispatch({ isLoading: false });
-      toast.dismiss();
-      toast.success("Logged In");
+      toastSuccess("Logged in successfully");
       router.push(ROUTES.Feed);
     } catch (err: unknown) {
       toastError(err as string);
