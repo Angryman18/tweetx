@@ -1,16 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import UserPageCard from "@/components/Users/UserPageCard";
-import axiosClient from "@/service/axios-client";
-import { TUserProfile } from "@/types/const";
+import useFetchUsers from "@/hooks/Users/useFetchUsers";
 
 const Users = () => {
-  const [users, setUsers] = useState<TUserProfile[]>([]);
-  useEffect(() => {
-    axiosClient.get("/api/user/all-user").then((res) => {
-      setUsers(res.data);
-    });
-  }, []);
+  const { users, setUsers } = useFetchUsers();
 
   const callback = (toFollow: boolean, id: string) => {
     const freshUserList = users.map((i) => {
