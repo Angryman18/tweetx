@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/UserModel";
 import { genPassword } from "@/utils/bcrypt";
-import dbConnect from "@/db/connect";
+import dbConnect, { dbDisconnect } from "@/db/connect";
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
@@ -17,5 +17,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     return NextResponse.json({ message: "Success" }, { statusText: "Success" });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 400 });
+  } finally {
+    await dbDisconnect().catch(console.log);
   }
 };

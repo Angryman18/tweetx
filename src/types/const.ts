@@ -28,4 +28,12 @@ export type TUserProfile = {
   fullname: string;
   followingCount: number;
   isFollowing: boolean;
+  followersCount?: number;
+};
+
+export type TCurrentUserProfile = TUserProfile & {
+  followersCount: number;
+  postCount: number;
+  avatar: string;
+  email: string;
 };

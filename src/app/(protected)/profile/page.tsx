@@ -1,3 +1,4 @@
+"use client"
 import ProfileMain from "@/components/Profile/ProfileMain";
 import React from "react";
 

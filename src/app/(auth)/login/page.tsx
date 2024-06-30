@@ -7,6 +7,7 @@ import { ROUTES } from "@/constants/router";
 import useLogin from "@/hooks/useLogin";
 import useStore from "@/hooks/useStore";
 import { TButton } from "@/types/const";
+import { toastError } from "@/utils/fe-utils/toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useReducer } from "react";
@@ -35,6 +36,7 @@ export default function Login() {
       dispatch({ isLoading: true });
       toast.loading("Please Wait");
       const { email, password } = state;
+      if (!email || !password) return toastError("Emai or Password cannot be empty!");
       const response = await login({ email, password });
       store(response, "user");
       dispatch({ isLoading: false });
@@ -42,8 +44,7 @@ export default function Login() {
       toast.success("Logged In");
       router.push(ROUTES.Feed);
     } catch (err: unknown) {
-      toast.dismiss();
-      toast.error(err as string);
+      toastError(err as string);
       dispatch({ isLoading: false });
     }
   };

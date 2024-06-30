@@ -1,15 +1,27 @@
 import axiosClient from "@/service/axios-client";
 import { TUserProfile } from "@/types/const";
-import { useEffect, useState } from "react";
+import { axiosErrorMsg } from "@/utils/fe-utils/error";
+import { toastError } from "@/utils/fe-utils/toast";
+import { useCallback, useEffect, useState } from "react";
 
 export default function useFetchUsers() {
   const [users, setUsers] = useState<TUserProfile[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axiosClient.get("/api/user/all-user").then((res) => {
-      setUsers(res.data);
-    });
+  const fetchUsers = useCallback(async () => {
+    try {
+      const resp = await axiosClient.get("/api/user/all-user");
+      setUsers(resp.data);
+    } catch (err: unknown) {
+      toastError(axiosErrorMsg(err));
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return {users, setUsers};
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  return { users, setUsers, loading };
 }

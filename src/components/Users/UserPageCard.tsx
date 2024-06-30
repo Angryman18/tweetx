@@ -11,14 +11,16 @@ const UserPageCard = ({
   followCount,
   isFollowing,
   showDivider = true,
-  callback,
+  callback = () => {},
+  showBasic = false,
 }: {
   name: string;
   followCount: number;
   id: string;
   isFollowing: boolean;
   showDivider?: boolean;
-  callback: (val: boolean, id: string) => void;
+  callback?: (val: boolean, id: string) => void;
+  showBasic?: boolean;
 }) => {
   const followUnFollow = useFollow();
   const { userData } = useStore();
@@ -26,9 +28,10 @@ const UserPageCard = ({
 
   const handleFollowUnFollowClick = async (toFollow: boolean, id: string) => {
     try {
-      await followUnFollow(toFollow, id);
-      callback(toFollow, id);
+      callback(toFollow, id); // make the follow first
+      await followUnFollow(toFollow, id); // call the api
     } catch (err) {
+      callback(!toFollow, id); // revert back if api fails
       toastError(err as string);
     }
   };
@@ -45,13 +48,19 @@ const UserPageCard = ({
         </div>
         <div className='flex-1 flex justify-end'>
           {!isNotCurrentUser ? (
-            <div className='text-sm font-semibold select-none opacity-50 text-center mr-8 rounded-xl bg-Text px-2 text-[#fff]'>
+            <div className='text-sm font-semibold select-none text-center mr-8 rounded-xl bg-Text px-2 text-[#fff]'>
               You
             </div>
           ) : isFollowing ? (
             <div
-              onClick={handleFollowUnFollowClick.bind(null, false, id)}
-              className='text-sm hover:border-LightShadow hover:border hover:px-4 hover:rounded-xl duration-100 font-semibold cursor-pointer opacity-50 text-center w-24'
+              onClick={
+                !showBasic
+                  ? handleFollowUnFollowClick.bind(null, false, id)
+                  : ((() => ({})) as React.MouseEventHandler)
+              }
+              className={`text-sm hover:border-LightShadow ${
+                !showBasic && "hover:border hover:px-4 hover:rounded-xl cursor-pointer"
+              } duration-100 font-semibold opacity-50 text-center w-24`}
             >
               Following
             </div>

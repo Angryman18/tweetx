@@ -38,7 +38,6 @@ export default function Signup() {
       dispatch({ isLoading: false });
       router.push(ROUTES.Login);
     } catch (err: unknown) {
-      console.log(err);
       dispatch({ isLoading: false });
       toastError(err as string);
     }

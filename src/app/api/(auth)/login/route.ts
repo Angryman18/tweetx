@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import User, { type TUser } from "@/models/UserModel";
 import { genToken } from "@/utils/jwt";
-import dbConnect from "@/db/connect";
+import dbConnect, { dbDisconnect } from "@/db/connect";
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
@@ -19,5 +19,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     return NextResponse.json({ data: { fullname, email: userEmail, avatar, token, _id } });
   } catch (err: unknown) {
     return NextResponse.json({ error: (err as Error).message }, { status: 400 });
+  } finally {
+    await dbDisconnect().catch(console.log);
   }
 };

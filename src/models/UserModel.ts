@@ -1,4 +1,5 @@
 import { Model, model, models, Schema } from "mongoose";
+import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 export type TUser = {
   fullname: string;
@@ -20,6 +21,8 @@ const UserModel = new Schema<TUser>({
   following: [{ type: Schema.Types.ObjectId, ref: "User" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
+
+UserModel.plugin(mongooseLeanVirtuals);
 
 UserModel.virtual("followersCount").get(function () {
   return this.followers?.length;

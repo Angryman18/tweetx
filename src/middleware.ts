@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const unprotectedRoutes = ["/api/login", "/api/signup"];
+const unprotectedRoutes = ["/api/login", "/api/signup", "/api/ok"];
 const protectedPages = ["/feed", "/profile", "/users"];
 
 export function middleware(req: NextRequest) {

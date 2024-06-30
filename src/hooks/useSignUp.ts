@@ -1,5 +1,5 @@
 import { axiosErrorMsg } from "@/utils/fe-utils/error";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export default function useSignUp() {
   const signUp = async <T>(data: T) => {
@@ -10,7 +10,7 @@ export default function useSignUp() {
       }
       return resp.data;
     } catch (err: unknown) {
-      return Promise.reject(axiosErrorMsg(err as AxiosError));
+      return Promise.reject(axiosErrorMsg(err));
     }
   };
   return signUp;

@@ -2,21 +2,13 @@
 import React from "react";
 import UserPageCard from "@/components/Users/UserPageCard";
 import useFetchUsers from "@/hooks/Users/useFetchUsers";
+import useFollowState from "@/hooks/Users/useFollowState";
+import Loading from "@/components/Loading/Loading";
 
 const Users = () => {
-  const { users, setUsers } = useFetchUsers();
-
-  const callback = (toFollow: boolean, id: string) => {
-    const freshUserList = users.map((i) => {
-      if (i.id === id && !toFollow) {
-        return { ...i, isFollowing: false, followingCount: --i.followingCount };
-      } else if (i.id === id && toFollow)
-        return { ...i, isFollowing: true, followingCount: ++i.followingCount };
-      else return i;
-    });
-    setUsers(freshUserList);
-  };
-
+  const { users, setUsers, loading } = useFetchUsers();
+  const callback = useFollowState();
+  if (loading) return <Loading isLoading={loading} />;
   return (
     <div>
       {users.map((user, _idx) => {
@@ -27,7 +19,7 @@ const Users = () => {
             name={user.fullname}
             id={user.id}
             followCount={user.followingCount}
-            callback={callback}
+            callback={callback(users, setUsers)}
           />
         );
       })}
